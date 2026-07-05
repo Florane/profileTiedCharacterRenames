@@ -1,0 +1,13 @@
+{
+	"blt_version" : 2,
+	"name" : "Profile-tied ingame character renames",
+	"description" : "Profile-tied ingame character renames",
+	"author" : " no",
+	"image" : "icon.png",
+	"version" : "1.0.0",
+	"priority" : 0,
+	"color" : "0.298 0.698 0.760",
+	"hooks" : [
+		{ "hook_id" : "lib/managers/localizationmanager", "script_path" : "main.lua"},
+	]
+}
