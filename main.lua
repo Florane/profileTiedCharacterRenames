@@ -14,14 +14,12 @@ MenuCallbackHandler[modId.."_save"] = function(self)
 		file:write(json.encode(storage))
 		file:close()
 	end
-	for k,v in pairs(storage) do
-		for k1,v1 in pairs(v) do
-			log(k.." "..k1.." "..v1)
-		end
-	end
 end
 
-for i,v in ipairs(characterIds) do
+local characterIndex = {} --i love preemptive optimization!!!
+for _,v in ipairs(characterIds) do
+	characterIndex["menu_"..v] = true
+
 	MenuCallbackHandler[modId.."_"..v.."_set"] = function (self, item)
 		if not managers.multi_profile then return end
 		local current_profile = managers.multi_profile._global._current_profile
@@ -35,11 +33,6 @@ Hooks:Add("MenuManagerBuildCustomMenus","MenuManagerBuildCustomMenus_profile_ren
 	if file then
 		storage = json.decode(file:read("*all")) or {}
 		file:close()
-	end
-	for k,v in pairs(storage) do
-		for k1,v1 in pairs(v) do
-			log(k.." "..k1.." "..v1)
-		end
 	end
 
 	MenuHelper:NewMenu(modId)
@@ -60,13 +53,10 @@ Hooks:Add("MenuManagerBuildCustomMenus","MenuManagerBuildCustomMenus_profile_ren
 end)
 
 Hooks:PostHook(LocalizationManager,"text",modId.."_text",function(self, string_id)
-	for k,v in pairs(characterIds) do
-		if string_id == "menu_"..v then
-			if not managers.multi_profile then return Hooks:GetReturn() end
-			local current_profile = managers.multi_profile._global._current_profile
-			if not storage[current_profile] then return Hooks:GetReturn() end
-			if not storage[current_profile][v] then return Hooks:GetReturn() end
-			return storage[current_profile][v]
-		end
-	end
+	if not characterIndex["menu_"..string_id] then return Hooks:GetReturn() end
+	if not managers.multi_profile then return Hooks:GetReturn() end
+	local current_profile = managers.multi_profile._global._current_profile
+	if not storage[current_profile] then return Hooks:GetReturn() end
+	if not storage[current_profile]["menu_"..string_id] then return Hooks:GetReturn() end
+	return storage[current_profile]["menu_"..string_id]
 end)
