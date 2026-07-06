@@ -1,3 +1,8 @@
+if _G.ProfileTiedCharacterRenames then
+	return
+end
+_G.ProfileTiedCharacterRenames = true
+
 local modId = "profile_renames"
 local characterIds = {"russian","german","spanish","american"
 ,"jowi","old_hoxton","female_1","dragan"
