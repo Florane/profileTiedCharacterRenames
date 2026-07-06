@@ -6,8 +6,14 @@
 	"image" : "icon.png",
 	"version" : "1.0.0",
 	"priority" : 0,
-	"color" : "0.298 0.698 0.760",
+	"color" : "0.286 0.690 0.365",
 	"hooks" : [
 		{ "hook_id" : "lib/managers/localizationmanager", "script_path" : "main.lua"},
+	],
+	"updates" : [
+		{
+			"identifier" : "ProfileTiedCharacterRenames",
+			"host" : {"meta" : "https://raw.githubusercontent.com/Florane/profileTiedCharacterRenames/refs/heads/main/meta.json"}
+		}
 	]
 }
